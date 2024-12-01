@@ -47,8 +47,6 @@ Este proyecto es un ejemplo básico de un webhook utilizando Sinatra en Ruby. El
 
 ## Notas
 - El servidor está configurado para correr en el puerto `5000`.
-- Puedes modificar la URL de conexión en `index.html` para usar ngrok o un dominio público.
-
 ---
 
 ¡Listo! Ahora puedes probar y desplegar tu webhook.
