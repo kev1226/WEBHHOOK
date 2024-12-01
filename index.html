@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Probar Webhook POST</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 400px;
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Probar Webhook POST</h2>
+    <form id="webhookForm">
+        <label for="jsonInput">Datos JSON:</label>
+        <textarea id="jsonInput" placeholder='{"key": "value"}'></textarea>
+        <button type="submit">Enviar</button>
+    </form>
+    <div id="response" style="margin-top: 20px;"></div>
+
+    <script>
+        document.getElementById("webhookForm").addEventListener("submit", async function(event) {
+            event.preventDefault(); // Evita la recarga de la página
+            
+            const jsonData = document.getElementById("jsonInput").value;
+            const responseDiv = document.getElementById("response");
+
+            try {
+                const response = await fetch("/webhook", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: jsonData,
+                });
+
+                const result = await response.json();
+                responseDiv.innerHTML = `<pre>${JSON.stringify(result, null, 2)}</pre>`;
+            } catch (error) {
+                responseDiv.innerHTML = `<p style="color: red;">Error: ${error.message}</p>`;
+            }
+        });
+    </script>
+</body>
+</html>
